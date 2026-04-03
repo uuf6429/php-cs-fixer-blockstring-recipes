@@ -1,0 +1,42 @@
+{
+    "name": "uuf6429/php-cs-fixer-blockstring-recipes",
+    "description": "Various snippets for formatting heredoc/nowdoc contents with PHP-CS-Fixer (and php-cs-fixer-blockstring extension)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Sciberras",
+            "email": "christian@sciberras.me"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-dom": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "friendsofphp/php-cs-fixer": "^3.94",
+        "uuf6429/php-cs-fixer-blockstring": "dev-main"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "uuf6429\\PhpCsFixerBlockstringRecipes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "uuf6429\\PhpCsFixerBlockstringRecipesTests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit -dzend_extension=php_xdebug -dxdebug.mode=coverage --colors=always ./tests/",
+        "lint": "phpstan analyse --verbose --no-progress --ansi",
+        "readme:refresh": "\\uuf6429\\PhpCsFixerBlockstringRecipes\\Readmerator\\Readmerator::rewrite",
+        "readme:verify": "\\uuf6429\\PhpCsFixerBlockstringRecipes\\Readmerator\\Readmerator::verify"
+    }
+}

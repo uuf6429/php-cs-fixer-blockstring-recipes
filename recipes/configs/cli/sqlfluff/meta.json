@@ -1,0 +1,12 @@
+{
+    "$schema": "../../../meta.schema.json",
+    "cases": [
+        [
+            "cases/SQL/input.php",
+            "cases/SQL/output.sqlfluff.php"
+        ]
+    ],
+    "require": {
+        "wsl-sqlfluff": "*"
+    }
+}

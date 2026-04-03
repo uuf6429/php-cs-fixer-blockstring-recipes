@@ -1,0 +1,12 @@
+{
+    "$schema": "../../../meta.schema.json",
+    "cases": [
+        [
+            "cases/JSON/input.php",
+            "cases/JSON/output.php"
+        ]
+    ],
+    "require": {
+        "docker": "*"
+    }
+}

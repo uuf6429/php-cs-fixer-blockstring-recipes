@@ -1,0 +1,17 @@
+{
+    "$schema": "../../../meta.schema.json",
+    "cases": [
+        [
+            "cases/XML/input.php",
+            "cases/XML/output.ext-dom.php"
+        ],
+        [
+            "cases/HTML/input.php",
+            "cases/HTML/output.ext-dom.php"
+        ]
+    ],
+    "require": {
+        "ext-dom": "*",
+        "ext-libxml": "*"
+    }
+}
