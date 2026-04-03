@@ -1,0 +1,12 @@
+{
+    "$schema": "../../../meta.schema.json",
+    "cases": [
+        [
+            "cases/SQL/input.php",
+            "cases/SQL/output.sql-formatter.php"
+        ]
+    ],
+    "require": {
+        "docker-backplane/sql-formatter": "*"
+    }
+}

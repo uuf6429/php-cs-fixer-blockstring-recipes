@@ -1,0 +1,108 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+    workflow_dispatch:
+    release:
+        types:
+            - created
+    schedule:
+        -   cron: '0 0 * * *'
+
+jobs:
+    check_actions:
+        name: Check GH Actions
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v6
+            -   uses: reviewdog/action-actionlint@v1
+                with:
+                    fail_level: 'any'
+                    filter_mode: 'nofilter'
+
+    check_composer:
+        name: Check composer.json
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v6
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    coverage: none
+                    php-version: '8.4'
+            -   run: composer validate --strict --no-check-lock
+
+    check_code:
+        name: Check code
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v6
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    coverage: none
+                    php-version: '8.4'
+            -   run: composer update --ansi --no-progress
+            -   run: composer lint
+
+    tests:
+        name: Build & Test (PHP ${{ matrix.php }} ${{ matrix.desc }})
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    -   desc: 'on Windows'
+                        os: 'windows-latest'
+                        php: '8.4'
+                    -   desc: 'on Ubuntu'
+                        os: 'ubuntu-latest'
+                        php: '8.4'
+        steps:
+            -   uses: actions/checkout@v6
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: "${{ matrix.php }}"
+                    ini-file: "development"
+                    coverage: "xdebug"
+            -   id: composer-cache
+                shell: bash
+                run: echo "dir=$(composer config cache-dir)" >> "$GITHUB_OUTPUT"
+            -   uses: actions/cache@v5
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+            -   # language=bash
+                run: |
+                    pip install --no-input sqlfluff "shandy-sqlfmt"
+                    npm install --global blade-formatter prettier
+            -   if: matrix.os == 'ubuntu-latest'
+                # language=bash
+                run: |
+                    sudo apt-get install --yes jq sqlformat
+                    docker pull ghcr.io/jqlang/jq
+                    docker pull backplane/sql-formatter
+                    docker pull sqlfluff/sqlfluff
+            # WSL setup is extremely slow, even for a daily/scheduled smoke test. :(
+            #-   if: matrix.os == 'windows-latest'
+            #    # language=bash
+            #    run: |
+            #        wsl --install Ubuntu-22.04
+            #        wsl sudo apt-get install --yes jq sqlformat
+            -   run: composer update --ansi --no-progress
+            -   run: composer test -- --coverage-clover=coverage.xml --log-junit junit.xml --testdox
+            -   if: ${{ !cancelled() }}
+                uses: codecov/codecov-action@v6
+                with:
+                    token: ${{ secrets.CODECOV_TOKEN }}
+                    report_type: coverage
+                    name: "Coverage: PHP ${{ matrix.php }} ${{ matrix.desc }}"
+                    flags: ${{ runner.os }}-php-${{ matrix.php }}
+            -   if: ${{ !cancelled() }}
+                uses: codecov/codecov-action@v6
+                with:
+                    token: ${{ secrets.CODECOV_TOKEN }}
+                    report_type: test_results
+                    name: "Tests: PHP ${{ matrix.php }} ${{ matrix.desc }}"
+                    flags: ${{ runner.os }}-php-${{ matrix.php }}

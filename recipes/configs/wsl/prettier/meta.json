@@ -1,0 +1,52 @@
+{
+    "$schema": "../../../meta.schema.json",
+    "cases": [
+        [
+            "cases/JavaScript/input.php",
+            "cases/JavaScript/output.php"
+        ],
+        [
+            "cases/JSX/input.php",
+            "cases/JSX/output.php"
+        ],
+        [
+            "cases/Vue/input.php",
+            "cases/Vue/output.php"
+        ],
+        [
+            "cases/TypeScript/input.php",
+            "cases/TypeScript/output.php"
+        ],
+        [
+            "cases/CSS/input.php",
+            "cases/CSS/output.php"
+        ],
+        [
+            "cases/SCSS/input.php",
+            "cases/SCSS/output.php"
+        ],
+        [
+            "cases/HTML/input.php",
+            "cases/HTML/output.prettier.php"
+        ],
+        [
+            "cases/JSON/input.php",
+            "cases/JSON/output.prettier.php"
+        ],
+        [
+            "cases/GraphQL/input.php",
+            "cases/GraphQL/output.php"
+        ],
+        [
+            "cases/Markdown/input.php",
+            "cases/Markdown/output.php"
+        ],
+        [
+            "cases/YAML/input.php",
+            "cases/YAML/output.php"
+        ]
+    ],
+    "require": {
+        "wsl-prettier": "*"
+    }
+}
