@@ -1,50 +1,61 @@
 {
     "$schema": "../../../meta.schema.json",
     "cases": [
-        [
-            "cases/JavaScript/input.php",
-            "cases/JavaScript/output.php"
-        ],
-        [
-            "cases/JSX/input.php",
-            "cases/JSX/output.php"
-        ],
-        [
-            "cases/Vue/input.php",
-            "cases/Vue/output.php"
-        ],
-        [
-            "cases/TypeScript/input.php",
-            "cases/TypeScript/output.php"
-        ],
-        [
-            "cases/CSS/input.php",
-            "cases/CSS/output.php"
-        ],
-        [
-            "cases/SCSS/input.php",
-            "cases/SCSS/output.php"
-        ],
-        [
-            "cases/HTML/input.php",
-            "cases/HTML/output.prettier.php"
-        ],
-        [
-            "cases/JSON/input.php",
-            "cases/JSON/output.prettier.php"
-        ],
-        [
-            "cases/GraphQL/input.php",
-            "cases/GraphQL/output.php"
-        ],
-        [
-            "cases/Markdown/input.php",
-            "cases/Markdown/output.php"
-        ],
-        [
-            "cases/YAML/input.php",
-            "cases/YAML/output.php"
-        ]
+        {
+            "configFile": "configs/cli/prettier/config.js.php",
+            "inputFile": "cases/JavaScript/input.php",
+            "outputFile": "cases/JavaScript/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.jsx.php",
+            "inputFile": "cases/JSX/input.php",
+            "outputFile": "cases/JSX/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.vue.php",
+            "inputFile": "cases/Vue/input.php",
+            "outputFile": "cases/Vue/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.ts.php",
+            "inputFile": "cases/TypeScript/input.php",
+            "outputFile": "cases/TypeScript/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.css.php",
+            "inputFile": "cases/CSS/input.php",
+            "outputFile": "cases/CSS/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.scss.php",
+            "inputFile": "cases/SCSS/input.php",
+            "outputFile": "cases/SCSS/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.html.php",
+            "inputFile": "cases/HTML/input.php",
+            "outputFile": "cases/HTML/output.prettier.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.json.php",
+            "inputFile": "cases/JSON/input.php",
+            "outputFile": "cases/JSON/output.prettier.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.gql.php",
+            "inputFile": "cases/GraphQL/input.php",
+            "outputFile": "cases/GraphQL/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.md.php",
+            "inputFile": "cases/Markdown/input.php",
+            "outputFile": "cases/Markdown/output.php"
+        },
+        {
+            "configFile": "configs/cli/prettier/config.yaml.php",
+            "inputFile": "cases/YAML/input.php",
+            "outputFile": "cases/YAML/output.php"
+        }
     ],
     "require": {
         "bin-prettier": "*"

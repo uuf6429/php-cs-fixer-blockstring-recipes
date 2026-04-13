@@ -2,10 +2,11 @@
     "$schema": "../../../meta.schema.json",
     "name": "shufo/blade-formatter",
     "cases": [
-        [
-            "cases/Blade/input.php",
-            "cases/Blade/output.php"
-        ]
+        {
+            "configFile": "configs/wsl/blade-formatter/config.php",
+            "inputFile": "cases/Blade/input.php",
+            "outputFile": "cases/Blade/output.php"
+        }
     ],
     "require": {
         "wsl-blade-formatter": "*"

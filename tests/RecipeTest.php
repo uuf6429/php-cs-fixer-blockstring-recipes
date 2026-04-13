@@ -42,7 +42,7 @@ final class RecipeTest extends TestCase
 				self::PCF_BINARY_PATH,
 				'fix',
 				'--using-cache=no',
-				'--config=' . $recipe->configFile,
+				'--config=' . $case->configFile,
 				'--sequential',
 				'-vvv',
 				'--diff',

@@ -1,10 +1,11 @@
 {
     "$schema": "../../../meta.schema.json",
     "cases": [
-        [
-            "cases/JSON/input.php",
-            "cases/JSON/output.php"
-        ]
+        {
+            "configFile": "configs/docker/jq/config.php",
+            "inputFile": "cases/JSON/input.php",
+            "outputFile": "cases/JSON/output.jq.php"
+        }
     ],
     "require": {
         "docker-ghcr.io/jqlang/jq": "*"

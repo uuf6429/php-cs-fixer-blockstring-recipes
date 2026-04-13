@@ -28,7 +28,7 @@ final class Readmerator
 
 	private static function normalizePath(string $path): string
 	{
-		if (($normalized = realpath($path)) === false) {
+		if (($normalized = @realpath($path)) === false) {
 			throw new RuntimeException("Could not normalize path: $path");
 		}
 		return $normalized;
@@ -36,7 +36,7 @@ final class Readmerator
 
 	private static function readFile(string $file): string
 	{
-		if (($content = file_get_contents($file)) === false) {
+		if (($content = @file_get_contents($file)) === false) {
 			throw new RuntimeException("Could not read file: $file");
 		}
 		return $content;
@@ -59,10 +59,10 @@ final class Readmerator
 						if ($case->type !== $caseType) {
 							continue;
 						}
-						$configHtml = strtr(htmlspecialchars(self::readFile($recipe->configFile)), ["\t" => '&nbsp;&nbsp;&nbsp;&nbsp;', "\n\n" => "\n<br>\n"]);
+						$configHtml = strtr(htmlspecialchars(self::readFile($case->configFile)), ["\t" => '&nbsp;&nbsp;&nbsp;&nbsp;', "\n\n" => "\n<br>\n"]);
 						$inputHtml = strtr(htmlspecialchars(self::readFile($case->inputFile)), ["\t" => '───→', ' ' => '·', "\n\n" => "\n<br>\n"]);
 						$outputHtml = strtr(htmlspecialchars(self::readFile($case->outputFile)), ["\t" => '───→', ' ' => '·', "\n\n" => "\n<br>\n"]);
-						$configPath = strtr($recipe->configFile, [$projectRoot => '.', '\\' => '/']);
+						$configPath = strtr($case->configFile, [$projectRoot => '.', '\\' => '/']);
 						$inputPath = strtr($case->inputFile, [$projectRoot => '.', '\\' => '/']);
 						$outputPath = strtr($case->outputFile, [$projectRoot => '.', '\\' => '/']);
 

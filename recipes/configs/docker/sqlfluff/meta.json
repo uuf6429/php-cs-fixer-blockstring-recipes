@@ -1,10 +1,11 @@
 {
     "$schema": "../../../meta.schema.json",
     "cases": [
-        [
-            "cases/SQL/input.php",
-            "cases/SQL/output.sqlfluff.php"
-        ]
+        {
+            "configFile": "configs/docker/sqlfluff/config.php",
+            "inputFile": "cases/SQL/input.php",
+            "outputFile": "cases/SQL/output.sqlfluff.php"
+        }
     ],
     "require": {
         "docker-sqlfluff/sqlfluff": "*"

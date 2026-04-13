@@ -13,7 +13,7 @@ use SplFileInfo;
  */
 final class RecipeRepository
 {
-	private const RECIPES_PATH = __DIR__ . '/../recipes';
+	public const string RECIPES_PATH = __DIR__ . '/../recipes/';
 
 	/**
 	 * @return iterable<RecipeMeta>

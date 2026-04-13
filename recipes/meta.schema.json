@@ -16,13 +16,29 @@
             "type": "array",
             "minItems": 1,
             "items": {
-                "type": "array",
-                "minItems": 2,
-                "maxItems": 2,
-                "items": {
-                    "type": "string",
-                    "pattern": "^cases(/[^/]+)+$",
-                    "nullable": false
+                "type": "object",
+                "required": [
+                    "configFile",
+                    "inputFile",
+                    "outputFile"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                    "configFile": {
+                        "type": "string",
+                        "pattern": "^configs(/[^/]+)+$",
+                        "nullable": false
+                    },
+                    "inputFile": {
+                        "type": "string",
+                        "pattern": "^cases(/[^/]+)+$",
+                        "nullable": false
+                    },
+                    "outputFile": {
+                        "type": "string",
+                        "pattern": "^cases(/[^/]+)+$",
+                        "nullable": false
+                    }
                 },
                 "nullable": false
             },

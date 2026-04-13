@@ -1,10 +1,11 @@
 {
     "$schema": "../../../meta.schema.json",
     "cases": [
-        [
-            "cases/SQL/input.php",
-            "cases/SQL/output.sql-formatter.php"
-        ]
+        {
+            "configFile": "configs/docker/sql-formatter/config.php",
+            "inputFile": "cases/SQL/input.php",
+            "outputFile": "cases/SQL/output.sql-formatter.php"
+        }
     ],
     "require": {
         "docker-backplane/sql-formatter": "*"

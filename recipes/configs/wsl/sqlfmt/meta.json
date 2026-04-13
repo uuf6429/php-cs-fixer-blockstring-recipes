@@ -1,10 +1,11 @@
 {
     "$schema": "../../../meta.schema.json",
     "cases": [
-        [
-            "cases/SQL/input.php",
-            "cases/SQL/output.sqlfmt.php"
-        ]
+        {
+            "configFile": "configs/wsl/sqlfmt/config.php",
+            "inputFile": "cases/SQL/input.php",
+            "outputFile": "cases/SQL/output.sqlfmt.php"
+        }
     ],
     "require": {
         "wsl-sqlfmt": "*"
