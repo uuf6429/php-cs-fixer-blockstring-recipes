@@ -1,0 +1,14 @@
+{
+    "$schema": "../../../meta.schema.json",
+    "name": "shufo/blade-formatter",
+    "cases": [
+        {
+            "configFile": "configs/docker/blade-formatter/config.php",
+            "inputFile": "cases/Blade/input.php",
+            "outputFile": "cases/Blade/output.php"
+        }
+    ],
+    "require": {
+        "docker-shufo/blade-formatter": "*"
+    }
+}

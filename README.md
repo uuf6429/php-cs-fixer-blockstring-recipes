@@ -120,6 +120,102 @@ echo·&lt;&lt;&lt;&#039;BLADE&#039;
 </td>
 <td>
 <details>
+<summary>docker</summary>
+<table>
+<tr><td colspan="2">Configuration (<a href="./recipes/configs/docker/blade-formatter/config.php">source</a>):<pre lang="php">&lt;?php declare(strict_types=1);
+<br>
+use uuf6429\PhpCsFixerBlockstring\Fixer\BlockStringFixer;
+use uuf6429\PhpCsFixerBlockstring\Formatter\DockerPipeFormatter;
+<br>
+return (new PhpCsFixer\Config())
+&nbsp;&nbsp;&nbsp;&nbsp;-&gt;setRiskyAllowed(true)
+&nbsp;&nbsp;&nbsp;&nbsp;-&gt;registerCustomFixers([new BlockStringFixer()])
+&nbsp;&nbsp;&nbsp;&nbsp;-&gt;setRules([
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BlockStringFixer::NAME =&gt; [
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#039;formatters&#039; =&gt; [
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#039;BLADE&#039; =&gt; new DockerPipeFormatter(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: &#039;shufo/blade-formatter&#039;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command: [&#039;--stdin&#039;],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pullMode: &#039;missing&#039;,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],
+&nbsp;&nbsp;&nbsp;&nbsp;]);
+</pre></td></tr>
+<tr><td valign="top">Example Input (<a href="./recipes/cases/Blade/input.php">source</a>):<pre lang="php">&lt;?php·declare(strict_types=1);
+<br>
+echo·&lt;&lt;&lt;&#039;BLADE&#039;
+───→@extends(&#039;frontend.layouts.app&#039;)
+───→@section(&#039;title&#039;)·foo
+───→@endsection
+───→@section(&#039;content&#039;)
+───→&lt;section·id=&quot;content&quot;&gt;
+───→&lt;div·class=&quot;container·mod-users-pd-h&quot;&gt;
+───→····&lt;div·class=&quot;pf-user-header&quot;&gt;
+───→····&lt;div&gt;&lt;/div&gt;
+───→····&lt;p&gt;@lang(&#039;users.index&#039;)&lt;/p&gt;
+───→····&lt;/div&gt;
+───→········&lt;div·class=&quot;pf-users-branch&quot;&gt;
+───→············&lt;ul·class=&quot;pf-users-branch__list&quot;&gt;
+───→················@foreach($users·as·$user)
+───→········&lt;li&gt;
+───→············&lt;img·src=&quot;{{·asset(&#039;img/frontend/icon/branch-arrow.svg&#039;)·}}&quot;·alt=&quot;branch_arrow&quot;&gt;
+───→············{{·link_to_route(&quot;frontend.users.user.show&quot;,$users[&quot;name&quot;],$users[&#039;_id&#039;])·}}
+───→········&lt;/li&gt;
+───→········@endforeach
+───→······&lt;/ul&gt;
+───→······&lt;div·class=&quot;pf-users-branch__btn&quot;&gt;
+───→······@can(&#039;create&#039;,·App\Models\User::class)
+───→············{!!·link_to_route(&quot;frontend.users.user.create&quot;,__(&#039;users.create&#039;),[1,2,3],[&#039;class&#039;·=&gt;·&#039;btn&#039;])·!!}
+───→············@endcan
+───→········&lt;/div&gt;
+───→··&lt;/div&gt;
+───→····&lt;/div&gt;
+───→&lt;/section&gt;
+───→@endsection
+───→@section(&#039;footer&#039;)
+───→@stop
+───→BLADE;
+</pre></td><td>Formatted Output (<a href="./recipes/cases/Blade/output.php">source</a>):<pre lang="php">&lt;?php·declare(strict_types=1);
+<br>
+echo·&lt;&lt;&lt;&#039;BLADE&#039;
+───→@extends(&#039;frontend.layouts.app&#039;)
+───→@section(&#039;title&#039;)·foo
+───→@endsection
+───→@section(&#039;content&#039;)
+───→····&lt;section·id=&quot;content&quot;&gt;
+───→········&lt;div·class=&quot;container·mod-users-pd-h&quot;&gt;
+───→············&lt;div·class=&quot;pf-user-header&quot;&gt;
+───→················&lt;div&gt;&lt;/div&gt;
+───→················&lt;p&gt;@lang(&#039;users.index&#039;)&lt;/p&gt;
+───→············&lt;/div&gt;
+───→············&lt;div·class=&quot;pf-users-branch&quot;&gt;
+───→················&lt;ul·class=&quot;pf-users-branch__list&quot;&gt;
+───→····················@foreach·($users·as·$user)
+───→························&lt;li&gt;
+───→····························&lt;img·src=&quot;{{·asset(&#039;img/frontend/icon/branch-arrow.svg&#039;)·}}&quot;·alt=&quot;branch_arrow&quot;&gt;
+───→····························{{·link_to_route(&#039;frontend.users.user.show&#039;,·$users[&#039;name&#039;],·$users[&#039;_id&#039;])·}}
+───→························&lt;/li&gt;
+───→····················@endforeach
+───→················&lt;/ul&gt;
+───→················&lt;div·class=&quot;pf-users-branch__btn&quot;&gt;
+───→····················@can(&#039;create&#039;,·App\Models\User::class)
+───→························{!!·link_to_route(&#039;frontend.users.user.create&#039;,·__(&#039;users.create&#039;),·[1,·2,·3],·[&#039;class&#039;·=&gt;·&#039;btn&#039;])·!!}
+───→····················@endcan
+───→················&lt;/div&gt;
+───→············&lt;/div&gt;
+───→········&lt;/div&gt;
+───→····&lt;/section&gt;
+───→@endsection
+───→@section(&#039;footer&#039;)
+───→@stop
+───→BLADE;
+</pre></td></tr>
+</table>
+</details>
+</td>
+<td>
+<details>
 <summary>wsl</summary>
 <table>
 <tr><td colspan="2">Configuration (<a href="./recipes/configs/wsl/blade-formatter/config.php">source</a>):<pre lang="php">&lt;?php declare(strict_types=1);
