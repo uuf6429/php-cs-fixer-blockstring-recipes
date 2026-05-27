@@ -8,8 +8,8 @@ return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
 				'SQL' => new CliPipeFormatter(
 					versionValueOrCommand: ['cmd' => 'sqlfluff --version'],
 					formatCommand: ['cmd' => 'sqlfluff format --dialect ansi -'],
@@ -18,6 +18,6 @@ return (new PhpCsFixer\Config())
 						changeFinalLineTo: DefaultNormalizer::STRIP
 					),
 				),
-			],
-		],
+			]
+		),
 	]);

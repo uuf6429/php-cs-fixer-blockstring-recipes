@@ -2,32 +2,40 @@
 
 use uuf6429\PhpCsFixerBlockstring\Fixer\BlockStringFixer;
 use uuf6429\PhpCsFixerBlockstring\Formatter\AbstractCodecFormatter;
+use uuf6429\PhpCsFixerBlockstring\Formatter\AbstractStringFormatter;
+use uuf6429\PhpCsFixerBlockstring\InterpolationCodec\CodecInterface;
 use uuf6429\PhpCsFixerBlockstring\InterpolationCodec\PlainStringCodec;
+use uuf6429\PhpCsFixerBlockstring\LineEndingNormalizer\NormalizerInterface;
+
+class NativeXmlFormatter extends AbstractStringFormatter
+{
+	public function __construct(?CodecInterface $interpolationCodec = null, ?NormalizerInterface $lineEndingNormalizer = null)
+	{
+		parent::__construct(self::class . ' (PHP ' . PHP_VERSION . ')', $interpolationCodec, $lineEndingNormalizer);
+	}
+
+	protected function formatContent(string $original): string
+	{
+		try {
+			libxml_use_internal_errors(true);
+			$dom = new DOMDocument();
+			$dom->preserveWhiteSpace = false;
+			$dom->formatOutput = true;
+			$dom->loadXML($original);
+			return substr((string)$dom->saveXML(), 0, -1);
+		} finally {
+			libxml_use_internal_errors(false);
+		}
+	}
+}
 
 return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
-				'XML' => new class (
-					version: PHP_VERSION,
-					interpolationCodec: new PlainStringCodec(),
-				) extends AbstractCodecFormatter {
-					protected function formatContent(string $original): string
-					{
-						try {
-							libxml_use_internal_errors(true);
-							$dom = new DOMDocument();
-							$dom->preserveWhiteSpace = false;
-							$dom->formatOutput = true;
-							$dom->loadXML($original);
-							return substr((string)$dom->saveXML(), 0, -1);
-						} finally {
-							libxml_use_internal_errors(false);
-						}
-					}
-				},
-			],
-		],
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
+				'XML' => new NativeXmlFormatter(interpolationCodec: new PlainStringCodec()),
+			]
+		),
 	]);

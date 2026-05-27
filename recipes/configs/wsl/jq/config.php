@@ -7,12 +7,12 @@ return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
 				'JSON' => new WslPipeFormatter(
 					versionValueOrCommand: ['cmd' => 'jq --version'],
 					formatCommand: ['cmd' => 'jq --indent 4 --monochrome-output .'],
 				),
-			],
-		],
+			]
+		),
 	]);

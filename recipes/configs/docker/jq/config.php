@@ -7,13 +7,13 @@ return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
 				'JSON' => new DockerPipeFormatter(
 					image: 'ghcr.io/jqlang/jq',
 					command: ['--indent', '4', '--monochrome-output', '.'],
 					pullMode: 'missing',
 				),
-			],
-		],
+			]
+		),
 	]);

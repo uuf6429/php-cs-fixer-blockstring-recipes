@@ -7,12 +7,12 @@ return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
 				'SQL' => new CliPipeFormatter(
 					versionValueOrCommand: ['cmd' => 'sqlformat --version'],
 					formatCommand: ['cmd' => 'sqlformat -k upper -s -r -'],
 				),
-			],
-		],
+			]
+		),
 	]);

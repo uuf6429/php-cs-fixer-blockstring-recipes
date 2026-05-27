@@ -7,13 +7,13 @@ return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
 				'SQL' => new DockerPipeFormatter(
 					image: 'sqlfluff/sqlfluff',
 					command: ['format', '--dialect', 'ansi', '-'],
 					pullMode: 'missing',
 				),
-			],
-		],
+			]
+		),
 	]);

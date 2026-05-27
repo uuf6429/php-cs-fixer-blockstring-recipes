@@ -8,8 +8,8 @@ return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
 				'JSON' => new CliPipeFormatter(
 					versionValueOrCommand: ['cmd' => 'jq --version'],
 					formatCommand: ['cmd' => 'jq --indent 4 --monochrome-output .'],
@@ -18,6 +18,6 @@ return (new PhpCsFixer\Config())
 						changeFinalLineTo: DefaultNormalizer::STRIP
 					),
 				),
-			],
-		],
+			]
+		),
 	]);

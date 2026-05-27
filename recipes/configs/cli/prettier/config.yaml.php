@@ -8,8 +8,8 @@ return (new PhpCsFixer\Config())
 	->setRiskyAllowed(true)
 	->registerCustomFixers([new BlockStringFixer()])
 	->setRules([
-		BlockStringFixer::NAME => [
-			'formatters' => [
+		BlockStringFixer::NAME => BlockStringFixer::config(
+			[
 				'YAML' => new CliPipeFormatter(
 					versionValueOrCommand: ['cmd' => 'prettier --version'],
 					formatCommand: ['cmd' => 'prettier --parser yaml'],
@@ -18,6 +18,6 @@ return (new PhpCsFixer\Config())
 						changeFinalLineTo: DefaultNormalizer::STRIP
 					),
 				),
-			],
-		],
+			]
+		),
 	]);
