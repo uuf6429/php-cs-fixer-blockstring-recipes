@@ -3,7 +3,7 @@
 echo <<<'MD'
 	# Messy Markdown
 	
-	Some text with **bold**and _italic _ mixed badly.
+	Some text with **bold**and *italic * mixed badly.
 	
 	- item 1
 	- item 2
@@ -17,8 +17,9 @@ echo <<<'MD'
 	> > nested quote
 	
 	`inline code`and more text with weird spacing
-	|col1| col2 |
-	|---|---|
-	|a|b|
-	| c | d|
+	
+	| col1 | col2 |
+	| ---- | ---- |
+	| a    | b    |
+	| c    | d    |
 	MD;
