@@ -6,6 +6,7 @@ use Composer\InstalledVersions;
 use Composer\Semver\Semver;
 use JsonException;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 use Throwable;
 use uuf6429\PhpCsFixerBlockstringRecipes\RecipeCase;
@@ -111,7 +112,7 @@ final class RecipeTest extends TestCase
 				&& Semver::satisfies((string)InstalledVersions::getPrettyVersion($requirement), $constraint),
 
 			default
-			=> throw new \RuntimeException("Unsupported requirement/constraint: $requirement/$constraint"),
+			=> throw new RuntimeException("Unsupported requirement/constraint: $requirement/$constraint"),
 		};
 	}
 
@@ -172,18 +173,17 @@ final class RecipeTest extends TestCase
 			return self::$executableExists[$cacheKey];
 		}
 
-		$checkCommand = match (true) {
+		$process = match (true) {
 			$this->isWindows() && $inWsl
-			=> ['wsl', 'bash', '-lc', "command -v $name"],
+			=> new Process(['wsl', 'bash', '-lc', 'command -v ' . escapeshellarg($name)]),
 
 			$this->isWindows()
-			=> ['where', $name],
+			=> new Process(['where', $name]),
 
 			default
-			=> ['command', '-v', $name],
+			=> Process::fromShellCommandline('command -v ' . escapeshellarg($name)),
 		};
 
-		$process = new Process($checkCommand);
 		$process->run();
 
 		return self::$executableExists[$cacheKey] = $process->isSuccessful();
