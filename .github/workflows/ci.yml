@@ -80,7 +80,7 @@ jobs:
             -   if: matrix.os == 'ubuntu-latest'
                 # language=bash
                 run: |
-                    sudo apt-get update && apt-get install --yes jq sqlformat
+                    sudo apt-get update && sudo apt-get install --yes jq sqlformat
                     docker pull ghcr.io/jqlang/jq
                     docker pull backplane/sql-formatter
                     docker pull sqlfluff/sqlfluff
